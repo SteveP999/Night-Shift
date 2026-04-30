@@ -1,0 +1,19 @@
+{
+  "artist": "Night Shift",
+  "featuredTrack": {
+    "title": "No Rules Tonight",
+    "artist": "Night Shift",
+    "album": "No Rules Tonight",
+    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-no-rules-tonight-cover.png",
+    "audioSrc": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1"
+  },
+  "tracks": [
+    {
+      "title": "No Rules Tonight",
+      "artist": "Night Shift",
+      "album": "No Rules Tonight",
+      "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-no-rules-tonight-cover.png",
+      "audioSrc": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1"
+    }
+  ]
+}

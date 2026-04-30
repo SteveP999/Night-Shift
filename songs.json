@@ -4,7 +4,15 @@
     "artist": "Night Shift",
     "album": "No Rules Tonight",
     "track": 1,
-    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-no-rules-tonight-cover.png",
+    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/covers/night-shift-no-rules-tonight-cover.png",
     "audioSrc": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1"
+  },
+  {
+    "title": "Turn Me Up",
+    "artist": "Night Shift",
+    "album": "No Rules Tonight",
+    "track": 2,
+    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/covers/night-shift-turn-me-up-cover.png",
+    "audioSrc": "https://www.dropbox.com/scl/fi/ncplflnsdo9cp4o5ldgn3/night-shift-turn-me-up-mp3.mp3?rlkey=1w1zljwrr2y901ti1unhppdnw&raw=1"
   }
 ]

@@ -1,710 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Night Shift — No Rules Tonight</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --ink:    #08080F;
-      --deep:   #0D0D16;
-      --mid:    #16161F;
-      --steel:  #B8C4D4;
-      --red:    #CC2200;
-      --red-lt: #FF3A1A;
-      --orange: #E05A00;
-      --cream:  #E0D8CC;
-      --silver: #7A8090;
-      --white:  #F0EEF5;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--ink);
-      color: var(--cream);
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      font-size: 15px;
-      line-height: 1.8;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    #topnav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 64px;
-      background: transparent; border-bottom: 1px solid transparent;
-      transition: background 0.4s, border-color 0.4s;
-    }
-    #topnav.scrolled {
-      background: rgba(8,8,15,0.96);
-      border-color: rgba(200,34,0,0.25);
-      backdrop-filter: blur(12px);
-    }
-    .nav-logo { height: 42px; width: auto; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: var(--silver); text-decoration: none;
-      font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--steel); }
-    .nav-htr {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      color: var(--steel); text-decoration: none;
-      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      border: 1px solid rgba(184,196,212,0.35);
-      padding: 0.4rem 1rem;
-      transition: background 0.2s, color 0.2s;
-      white-space: nowrap;
-    }
-    .nav-htr:hover { background: var(--steel); color: var(--ink); }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative; height: 100vh; min-height: 620px;
-      display: flex; align-items: flex-end; overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: url('https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-band-photo-no-text.png') center 25% / cover no-repeat;
-      filter: brightness(0.4) saturate(0.85);
-      transform: scale(1.04);
-    }
-    .hero-vignette {
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(8,8,15,0.6) 0%, rgba(8,8,15,0.05) 35%, rgba(8,8,15,0.8) 70%, rgba(8,8,15,1) 100%),
-        linear-gradient(to right, rgba(8,8,15,0.75) 0%, transparent 65%);
-    }
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 0 3.5rem 5.5rem; max-width: 620px;
-    }
-    .hero-eyebrow {
-      font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
-      color: var(--red-lt); margin-bottom: 1.2rem;
-    }
-    .hero-wordmark { margin-bottom: 1.4rem; }
-    .hero-wordmark img { height: 80px; width: auto; }
-    .hero-tagline {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-      font-weight: 400; color: var(--steel); opacity: 0.9;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 2.2rem; line-height: 1.5;
-    }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .cta-primary {
-      background: var(--red); color: var(--white); border: none;
-      padding: 0.8rem 2.2rem;
-      font-family: 'Oswald', sans-serif; font-size: 0.75rem;
-      font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase;
-      cursor: pointer; transition: background 0.2s, transform 0.15s;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-    }
-    .cta-primary:hover { background: var(--red-lt); transform: translateY(-1px); }
-    .cta-secondary {
-      background: transparent; color: var(--steel);
-      border: 1px solid rgba(184,196,212,0.4);
-      padding: 0.8rem 2.2rem; text-decoration: none; display: inline-block;
-      font-family: 'Oswald', sans-serif; font-size: 0.75rem;
-      font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .cta-secondary:hover { border-color: var(--steel); color: var(--white); }
-
-    /* ── DIVIDER ── */
-    .divider {
-      display: flex; align-items: center; gap: 1rem;
-      margin: 1.5rem 0 2.5rem;
-    }
-    .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, var(--red), transparent); }
-    .divider-star { color: var(--red); font-size: 0.7rem; flex-shrink: 0; }
-
-    /* ── SECTION COMMON ── */
-    .eyebrow {
-      font-size: 0.58rem; letter-spacing: 0.38em; text-transform: uppercase;
-      color: var(--red-lt); margin-bottom: 0.6rem; display: block;
-    }
-    .section-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem); font-weight: 600;
-      color: var(--white); line-height: 1.1;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    /* ── LATEST SINGLE ── */
-    #latest-section {
-      background: var(--deep);
-      padding: 5rem 0;
-      border-top: 1px solid rgba(204,34,0,0.2);
-    }
-    .latest-inner { max-width: 1060px; margin: 0 auto; padding: 0 2.5rem; }
-    .latest-header { text-align: center; margin-bottom: 3.5rem; }
-    .latest-header .eyebrow { margin-bottom: 0.75rem; }
-    .latest-grid { display: grid; grid-template-columns: 320px 1fr; gap: 4rem; align-items: center; }
-    .latest-cover-wrap img {
-      width: 100%; aspect-ratio: 1; object-fit: cover; display: block;
-      box-shadow: 0 0 60px rgba(204,34,0,0.3), 0 24px 64px rgba(0,0,0,0.9);
-    }
-    .latest-meta .badge {
-      display: inline-block;
-      font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--red-lt); border: 1px solid rgba(204,34,0,0.5);
-      padding: 0.25rem 0.85rem; margin-bottom: 1.2rem;
-    }
-    .latest-meta h2 {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 600;
-      line-height: 1.1; margin-bottom: 0.4rem; color: var(--white);
-      text-transform: uppercase; letter-spacing: 0.04em;
-    }
-    .latest-meta .artist-sub {
-      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--silver); margin-bottom: 2rem;
-    }
-    .play-single-btn {
-      display: inline-flex; align-items: center; gap: 0.75rem;
-      background: transparent; color: var(--red-lt);
-      border: 1px solid rgba(204,34,0,0.5);
-      cursor: pointer; padding: 0.85rem 2rem;
-      font-family: 'Oswald', sans-serif; font-size: 0.72rem;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      transition: background 0.2s, color 0.2s;
-    }
-    .play-single-btn:hover { background: var(--red); color: var(--white); border-color: var(--red); }
-
-    /* ── VIDEO ── */
-    #video-section {
-      background: var(--ink);
-      padding: 5rem 0;
-      border-top: 1px solid rgba(184,196,212,0.08);
-    }
-    .video-inner { max-width: 900px; margin: 0 auto; padding: 0 2.5rem; text-align: center; }
-    .video-inner .eyebrow { margin-bottom: 0.75rem; }
-    .video-inner .section-title { margin-bottom: 0.4rem; }
-    .video-sub {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      color: var(--silver); font-size: 1rem; margin-bottom: 2.5rem;
-      letter-spacing: 0.08em;
-    }
-    .video-embed-wrap {
-      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(204,34,0,0.2);
-    }
-    .video-embed-wrap iframe {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
-    }
-    .no-video-placeholder {
-      background: var(--mid); border: 1px solid rgba(184,196,212,0.1);
-      padding: 4rem 2rem; text-align: center;
-      color: var(--silver); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
-    }
-
-    /* ── DISCOGRAPHY ── */
-    #discography-section {
-      background: var(--deep);
-      padding: 5rem 0;
-      border-top: 1px solid rgba(204,34,0,0.2);
-    }
-    .discography-inner { max-width: 1100px; margin: 0 auto; padding: 0 3.5rem; }
-    .discography-header { margin-bottom: 4rem; }
-    .album-block { margin-bottom: 5rem; }
-    .album-block:last-child { margin-bottom: 0; }
-    .album-header-strip {
-      display: flex; align-items: center; gap: 2.5rem;
-      margin-bottom: 3rem; padding-bottom: 2rem;
-      border-bottom: 1px solid rgba(184,196,212,0.1);
-    }
-    .album-cover-sq {
-      width: 160px; height: 160px; object-fit: cover; flex-shrink: 0;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.8);
-    }
-    .album-header-text .album-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600;
-      color: var(--white); margin: 0.4rem 0 0.3rem;
-      text-transform: uppercase; letter-spacing: 0.06em;
-    }
-    .album-header-text .album-sub {
-      color: var(--silver); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-    }
-
-    /* ── SONG GRID ── */
-    .song-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
-    }
-    .song-card { cursor: pointer; transition: transform 0.2s; }
-    .song-card:hover { transform: translateY(-4px); }
-    .song-card.playing .song-img-wrap img {
-      box-shadow: 0 0 0 3px var(--red), 0 8px 32px rgba(204,34,0,0.4);
-    }
-    .song-img-wrap { position: relative; overflow: hidden; aspect-ratio: 1; }
-    .song-img-wrap img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: opacity 0.2s;
-    }
-    .song-card:hover .song-img-wrap img { opacity: 0.7; }
-    .song-play-overlay {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.2s;
-    }
-    .song-card:hover .song-play-overlay,
-    .song-card.playing .song-play-overlay { opacity: 1; }
-    .song-play-icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: rgba(204,34,0,0.9); color: var(--white);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; padding-left: 4px;
-    }
-    .song-card-num {
-      color: var(--silver); font-size: 0.6rem; letter-spacing: 0.18em;
-      text-transform: uppercase; margin-top: 0.75rem;
-    }
-    .song-card-title {
-      font-family: 'Oswald', sans-serif;
-      color: var(--cream); font-size: 0.95rem; line-height: 1.3;
-      margin-top: 0.25rem; letter-spacing: 0.04em; text-transform: uppercase;
-    }
-
-    /* ── ABOUT ── */
-    #about-section {
-      background: var(--ink);
-      padding: 6rem 0;
-      border-top: 1px solid rgba(184,196,212,0.08);
-    }
-    .about-inner { max-width: 1100px; margin: 0 auto; padding: 0 3.5rem; }
-    .about-bio {
-      display: grid; grid-template-columns: 1fr 360px; gap: 4rem;
-      align-items: center; margin-top: 3rem; margin-bottom: 5rem;
-    }
-    .about-text {
-      font-size: clamp(1rem, 1.8vw, 1.12rem);
-      color: var(--cream); opacity: 0.85; line-height: 1.95;
-    }
-    .about-photo { width: 100%; box-shadow: 0 12px 48px rgba(0,0,0,0.7); }
-
-    /* ── MEMBERS GRID ── */
-    .members-header { margin-bottom: 2.5rem; }
-    .members-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem;
-    }
-    .member-card { text-align: center; }
-    .member-card img {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top;
-      display: block;
-      filter: grayscale(20%) contrast(1.05);
-      transition: filter 0.3s, transform 0.3s;
-    }
-    .member-card:hover img { filter: grayscale(0%) contrast(1.1); transform: scale(1.02); }
-    .member-name {
-      font-family: 'Oswald', sans-serif;
-      font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--steel); margin-top: 0.75rem;
-    }
-    .member-role {
-      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--silver); margin-top: 0.2rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center; padding: 2.5rem 2rem;
-      border-top: 1px solid rgba(204,34,0,0.15);
-      color: var(--silver); font-size: 0.68rem; letter-spacing: 0.12em;
-    }
-    footer a { color: var(--red-lt); text-decoration: none; }
-    footer a:hover { color: var(--steel); }
-
-    /* ── PLAYER BAR ── */
-    #player-bar {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(8,8,15,0.98); border-top: 1px solid rgba(204,34,0,0.25);
-      backdrop-filter: blur(16px); display: none;
-      padding: 0.75rem 2rem; align-items: center; gap: 1.5rem;
-    }
-    #player-bar.visible { display: flex; }
-    #pb-art { width: 44px; height: 44px; object-fit: cover; flex-shrink: 0; }
-    #pb-info { min-width: 0; flex: 0 0 180px; }
-    #pb-title { color: var(--white); font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: 'Oswald', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
-    #pb-album { color: var(--silver); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; }
-    .pb-controls { display: flex; align-items: center; gap: 0.75rem; }
-    #pb-play {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: var(--red); border: none; color: var(--white);
-      font-size: 0.85rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; padding-left: 2px;
-      transition: background 0.2s;
-    }
-    #pb-play:hover { background: var(--red-lt); }
-    .pb-skip { background: none; border: none; color: var(--silver); font-size: 0.7rem; cursor: pointer; transition: color 0.2s; }
-    .pb-skip:hover { color: var(--steel); }
-    .pb-progress { flex: 1; display: flex; align-items: center; gap: 0.75rem; }
-    .pb-time { color: var(--silver); font-size: 0.7rem; flex-shrink: 0; }
-    .pb-bar { flex: 1; height: 3px; background: rgba(184,196,212,0.15); border-radius: 2px; cursor: pointer; }
-    .pb-fill { height: 100%; background: var(--red); border-radius: 2px; width: 0; transition: width 0.25s linear; }
-    .pb-vol { width: 80px; accent-color: var(--red); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1000px) {
-      .members-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 768px) {
-      .hero-content { padding: 0 1.5rem 4rem; }
-      .discography-inner, .about-inner { padding: 0 1.5rem; }
-      .latest-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .latest-cover-wrap img { max-width: 280px; }
-      .album-header-strip { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-      .song-grid { grid-template-columns: repeat(2, 1fr); }
-      .about-bio { grid-template-columns: 1fr; gap: 2rem; }
-      .about-photo { order: -1; max-width: 300px; }
-      .members-grid { grid-template-columns: repeat(2, 1fr); }
-      #topnav { padding: 0 1.25rem; }
-      .nav-links { display: none; }
-      #player-bar { padding: 0.6rem 1rem; gap: 0.75rem; }
-      #pb-info { flex: 0 0 120px; }
-      .pb-vol { display: none; }
-    }
-    @media (max-width: 480px) {
-      .members-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-  </style>
+<meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4PCFSEQJZ1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-4PCFSEQJZ1');
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Night Shift — Southern Rock · Blues Rock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black:#030508; --ink:#060B14; --deep:#080E1C; --mid:#0C1428;
+  --indigo:#3A5ECC; --indigo-lt:#6A8EEE; --indigo-glow:rgba(58,94,204,0.22);
+  --amber:#D4902A; --amber-lt:#EAB050; --amber-glow:rgba(212,144,42,0.2);
+  --cream:#E8E0D0; --slate:#8890A8; --dust:#505870; --white:#F4F0E8;
+  --accent:#D4902A; --accent-lt:#EAB050; --accent-glow:rgba(212,144,42,0.25);
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--cream);font-family:'Barlow',sans-serif;font-weight:300;font-size:15px;line-height:1.75;overflow-x:hidden;}
+#topnav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:transparent;border-bottom:1px solid transparent;transition:background 0.4s,border-color 0.4s;}
+#topnav.scrolled{background:rgba(3,5,8,0.96);border-color:var(--indigo-glow);backdrop-filter:blur(12px);}
+.nav-logo{height:38px;width:auto;mix-blend-mode:screen;filter:brightness(1.6);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:var(--dust);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;letter-spacing:0.18em;text-transform:uppercase;transition:color 0.2s;}
+.nav-links a:hover{color:var(--amber-lt);}
+.hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center 30%;background-repeat:no-repeat;filter:brightness(0.3) contrast(1.1);}
+.hero-vignette{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(3,5,8,0.4) 0%,rgba(3,5,8,0) 35%,rgba(3,5,8,0.85) 72%,rgba(3,5,8,0.99) 100%),linear-gradient(to right,rgba(3,5,8,0.75) 0%,transparent 55%);}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 65% 45%,rgba(58,94,204,0.1) 0%,transparent 60%),radial-gradient(ellipse 30% 25% at 20% 65%,rgba(212,144,42,0.08) 0%,transparent 50%);}
+.hero-content{position:relative;z-index:2;padding:0 3.5rem 5rem;max-width:580px;}
+.hero-logo-wrap{margin-bottom:1.5rem;}
+.hero-logo-wrap img{height:62px;width:auto;mix-blend-mode:screen;filter:brightness(1.6);}
+.hero-label{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);margin-bottom:0.9rem;}
+.hero-tagline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.3rem,2.5vw,1.7rem);font-weight:300;letter-spacing:0.06em;color:var(--white);opacity:0.85;margin-bottom:2rem;line-height:1.45;}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;}
+.cta-primary{background:var(--accent);color:var(--black);border:none;padding:0.8rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:background 0.2s,transform 0.15s;}
+.cta-primary:hover{background:var(--amber-lt);transform:translateY(-1px);}
+.cta-secondary{background:transparent;color:var(--cream);border:1px solid rgba(212,144,42,0.4);padding:0.8rem 2rem;text-decoration:none;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;letter-spacing:0.18em;text-transform:uppercase;transition:border-color 0.2s,color 0.2s;}
+.cta-secondary:hover{border-color:var(--amber);color:var(--amber-lt);}
+.section-header{text-align:center;padding:5rem 2rem 3.5rem;}
+.section-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;}
+.section-title{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,5vw,3.8rem);color:var(--white);letter-spacing:0.04em;}
+.amber-rule{width:48px;height:2px;background:linear-gradient(to right,var(--accent),var(--indigo));margin:1rem auto 0;opacity:0.8;}
+#bio{background:var(--ink);padding-bottom:5rem;}
+.bio-inner{max-width:680px;margin:0 auto;padding:0 2rem;text-align:center;}
+.bio-inner p{color:var(--slate);line-height:1.9;font-size:0.95rem;margin-bottom:1.2rem;}
+.band-members{display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;}
+.member-tag{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(212,144,42,0.3);padding:0.3rem 0.8rem;}
+#latest-single{background:var(--deep);padding:5rem 0;border-top:1px solid var(--indigo-glow);}
+.latest-inner{max-width:1060px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:380px 1fr;gap:4.5rem;align-items:center;}
+.latest-cover{width:100%;aspect-ratio:1;object-fit:cover;display:block;box-shadow:0 0 60px var(--accent-glow),0 24px 64px rgba(0,0,0,0.9);}
+.latest-badge{font-family:'Barlow Condensed',sans-serif;display:inline-block;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(212,144,42,0.4);padding:0.3rem 0.9rem;margin-bottom:1.2rem;}
+.latest-title{font-family:'Anton',sans-serif;font-size:clamp(2rem,4vw,3rem);color:var(--white);line-height:1;margin-bottom:0.5rem;letter-spacing:0.03em;}
+.latest-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--dust);margin-bottom:2rem;}
+.latest-play-btn{display:inline-flex;align-items:center;gap:0.75rem;background:transparent;color:var(--accent);border:1px solid rgba(212,144,42,0.5);cursor:pointer;padding:0.85rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:0.88rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;transition:border-color 0.2s,background 0.2s;}
+.latest-play-btn:hover{background:var(--accent-glow);}
+.album-section{padding:5rem 0;border-top:1px solid var(--indigo-glow);background:var(--mid);}
+.album-layout{max-width:1040px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:340px 1fr;gap:4rem;align-items:start;}
+.album-cover{width:100%;aspect-ratio:1;object-fit:cover;display:block;box-shadow:0 0 40px var(--indigo-glow),0 20px 60px rgba(0,0,0,0.85);}
+.album-badge{font-family:'Barlow Condensed',sans-serif;display:inline-block;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(212,144,42,0.4);padding:0.25rem 0.75rem;margin-bottom:1.2rem;}
+.album-title{font-family:'Anton',sans-serif;font-size:clamp(2rem,3.5vw,2.8rem);color:var(--white);line-height:1.1;margin-bottom:0.4rem;letter-spacing:0.03em;}
+.album-artist{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--dust);margin-bottom:2rem;}
+.tracklist{border-top:1px solid rgba(212,144,42,0.12);}
+.track-row{display:grid;grid-template-columns:2rem 1fr auto auto;align-items:center;gap:0.75rem;padding:0.8rem 0;border-bottom:1px solid rgba(212,144,42,0.07);transition:background 0.2s;}
+.track-row:hover{background:rgba(212,144,42,0.04);}
+.track-num{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;color:var(--dust);opacity:0.4;text-align:right;}
+.track-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:0.04em;color:var(--cream);}
+.track-badge{font-family:'Barlow Condensed',sans-serif;font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.18rem 0.55rem;color:var(--accent);border:1px solid rgba(212,144,42,0.38);}
+.track-play-btn{background:transparent;border:1px solid rgba(212,144,42,0.3);color:var(--accent);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.6rem;flex-shrink:0;transition:background 0.2s,border-color 0.2s;}
+.track-play-btn:hover{background:rgba(212,144,42,0.12);border-color:var(--amber);}
+.track-play-btn.playing{background:rgba(212,144,42,0.2);border-color:var(--amber-lt);}
+#singles{background:var(--ink);padding:5rem 0;border-top:1px solid var(--indigo-glow);}
+.singles-grid{max-width:1040px;margin:0 auto;padding:0 2.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;}
+.single-card{cursor:pointer;}
+.single-img-wrap{position:relative;overflow:hidden;aspect-ratio:1;}
+.single-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.45s,filter 0.4s;filter:brightness(0.72);}
+.single-card:hover .single-img-wrap img{transform:scale(1.04);filter:brightness(1);}
+.single-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(3,5,8,0);transition:background 0.3s;}
+.single-card:hover .single-overlay{background:rgba(3,5,8,0.35);}
+.single-play-btn{width:52px;height:52px;border:2px solid var(--amber);background:rgba(3,5,8,0.6);color:var(--amber);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:scale(0.85);transition:opacity 0.25s,transform 0.25s;}
+.single-card:hover .single-play-btn,.single-play-btn.playing{opacity:1;transform:scale(1);}
+.single-info{padding:0.85rem 0 0;}
+.single-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:600;letter-spacing:0.04em;color:var(--white);margin-bottom:0.2rem;}
+.single-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);opacity:0.65;}
+.single-badge{display:inline-block;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(212,144,42,0.4);padding:0.12rem 0.45rem;margin-left:0.4rem;vertical-align:middle;}
+#photos{border-top:1px solid var(--indigo-glow);background:var(--deep);}
+.photo-header{text-align:center;padding:4rem 2rem 2rem;}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.photo-grid img{width:100%;aspect-ratio:1;object-fit:cover;display:block;filter:brightness(0.7) saturate(0.85);transition:filter 0.35s,transform 0.4s;}
+.photo-grid img:hover{filter:brightness(1) saturate(1);transform:scale(1.02);}
+.photo-wide{grid-column:span 3;height:280px;}
+.photo-wide img{width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:brightness(0.65);transition:filter 0.35s;}
+.photo-wide img:hover{filter:brightness(0.9);}
+#player{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(3,5,8,0.97);border-top:1px solid rgba(212,144,42,0.25);backdrop-filter:blur(16px);grid-template-columns:auto 1fr auto;align-items:center;gap:1.5rem;padding:0.8rem 2rem;transform:translateY(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);}
+#player.visible{transform:translateY(0);}
+.p-info{display:flex;align-items:center;gap:1rem;min-width:0;}
+.p-thumb{width:42px;height:42px;object-fit:cover;flex-shrink:0;border:1px solid rgba(212,144,42,0.25);}
+.p-title{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;letter-spacing:0.04em;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.p-sub{font-family:'Barlow Condensed',sans-serif;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--dust);opacity:0.55;}
+.p-controls{display:flex;align-items:center;flex-direction:column;flex:1;gap:0.5rem;min-width:0;}
+.p-btn-row{display:flex;align-items:center;gap:1.2rem;}
+.p-btn{background:transparent;border:none;color:var(--dust);cursor:pointer;font-size:0.9rem;padding:0.25rem;transition:color 0.2s;}
+.p-btn:hover{color:var(--amber-lt);}
+#p-playbtn{width:36px;height:36px;border:1px solid rgba(212,144,42,0.5);background:transparent;color:var(--accent);cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
+#p-playbtn:hover{background:rgba(212,144,42,0.18);}
+.p-progress{display:flex;align-items:center;gap:0.75rem;width:100%;}
+.p-time{font-size:0.6rem;color:var(--dust);opacity:0.55;white-space:nowrap;}
+#p-bar{flex:1;height:3px;background:rgba(212,144,42,0.15);cursor:pointer;position:relative;}
+#p-fill{height:100%;width:0%;background:linear-gradient(to right,var(--accent),var(--indigo-lt));pointer-events:none;}
+.p-right{display:flex;align-items:center;gap:1rem;}
+#p-vol{width:72px;accent-color:var(--accent);}
+#p-close{background:transparent;border:none;color:var(--dust);cursor:pointer;font-size:1rem;opacity:0.5;transition:opacity 0.2s;}
+#p-close:hover{opacity:1;}
+footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4rem 2rem 3rem;text-align:center;}
+.foot-logo{height:48px;width:auto;mix-blend-mode:screen;filter:brightness(1.6);margin-bottom:1.2rem;}
+.foot-label{font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--dust);opacity:0.4;margin-bottom:1.5rem;}
+.foot-links{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;}
+.foot-links a{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);text-decoration:none;opacity:0.4;transition:opacity 0.2s,color 0.2s;}
+.foot-links a:hover{opacity:1;color:var(--amber-lt);}
+.loading-ph{text-align:center;padding:3rem;color:var(--dust);font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;}
+@media(max-width:768px){
+  .album-layout{grid-template-columns:1fr;gap:2rem;}
+  .album-cover{max-width:300px;margin:0 auto;}
+  .latest-inner{grid-template-columns:1fr!important;gap:2rem;}
+  .hero-content{padding:0 1.8rem 3.5rem;}
+  .singles-grid{grid-template-columns:1fr;gap:1rem;}
+  #player{grid-template-columns:1fr;gap:0.5rem;}
+  .p-info{display:none;}
+  .photo-grid{grid-template-columns:repeat(2,1fr);}
+  .photo-wide{grid-column:span 2;}
+}
+</style>
 </head>
 <body>
-
-  <!-- 1. TOP NAV -->
-  <nav id="topnav">
-    <img class="nav-logo" src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift">
-    <ul class="nav-links">
-      <li><a href="#discography-section">Music</a></li>
-      <li><a href="#about-section">The Crew</a></li>
-    </ul>
-    <a class="nav-htr" href="https://hellotexasrecords.com/" target="_blank">&#8592; Hello Texas Records</a>
-  </nav>
-
-  <!-- 2. HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-vignette"></div>
-    <div class="hero-content">
-      <div class="hero-eyebrow">Pop &nbsp;·&nbsp; Dance &nbsp;·&nbsp; Anthems</div>
-      <div class="hero-wordmark">
-        <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift">
-      </div>
-      <p class="hero-tagline">Five guys. One sound. No rules tonight.</p>
-      <div class="hero-ctas">
-        <button class="cta-primary" id="hero-play-btn">&#9654;&nbsp; Play Now</button>
-        <a class="cta-secondary" href="#discography-section">Discography</a>
-      </div>
+<nav id="topnav">
+  <img class="nav-logo" src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift">
+  <ul class="nav-links">
+    <li><a href="#bio">About</a></li>
+    <li><a href="#albums">Music</a></li>
+    <li><a href="#singles">Singles</a></li>
+    <li><a href="#photos">Band</a></li>
+    <li><a href="https://stevep999.github.io/hello-texas-records/" target="_blank" style="opacity:0.45;font-size:0.72rem;">Hello Texas Records</a></li>
+  </ul>
+</nav>
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-band-photo-no-text.png');"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-label">Hello Texas Records</div>
+    <div class="hero-logo-wrap">
+      <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift">
     </div>
-  </section>
-
-  <!-- 3. LATEST SINGLE -->
-  <section id="latest-section">
-    <div class="latest-inner">
-      <div class="latest-header">
-        <span class="eyebrow">Latest Single</span>
-        <h2 id="latest-title-top" style="font-family:'Oswald',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:600;color:var(--white);text-transform:uppercase;letter-spacing:0.06em;">Loading…</h2>
-        <div style="width:60px;height:2px;margin:1.2rem auto 0;background:var(--red);"></div>
-      </div>
-      <div class="latest-grid">
-        <div class="latest-cover-wrap">
-          <img src="" alt="" id="latest-cover">
-        </div>
-        <div class="latest-meta">
-          <div class="badge">Latest Single</div>
-          <h2 id="latest-title-large">Loading…</h2>
-          <div class="artist-sub" id="latest-artist">Night Shift</div>
-          <button class="play-single-btn" id="latest-play">&#9654;&nbsp; Play Now</button>
-        </div>
-      </div>
+    <p class="hero-tagline">When the day shift clocks out,<br>Night Shift takes over.</p>
+    <div class="hero-ctas">
+      <button class="cta-primary" id="hero-play-btn">&#9654;&nbsp; Play Latest Single</button>
+      <a href="#albums" class="cta-secondary">Discography</a>
     </div>
-  </section>
-
-  <!-- 4. VIDEO -->
-  <section id="video-section">
-    <div class="video-inner">
-      <span class="eyebrow">Official Music Video</span>
-      <h2 class="section-title">No Rules Tonight</h2>
-      <p class="video-sub">Watch the official video</p>
-      <div class="video-embed-wrap">
-        <iframe src="https://www.youtube.com/embed/8lA1sOPqRCw" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 & 6. DISCOGRAPHY + SONG COVERS -->
-  <section id="discography-section">
-    <div class="discography-inner">
-      <div class="discography-header">
-        <span class="eyebrow">Discography</span>
-        <h2 class="section-title">Music</h2>
-        <div class="divider">
-          <div class="divider-line"></div>
-          <span class="divider-star">&#9733;</span>
-          <div class="divider-line" style="background:linear-gradient(to left,var(--red),transparent);"></div>
-        </div>
-      </div>
-      <div id="discography-albums"></div>
-    </div>
-  </section>
-
-  <!-- 7. ABOUT -->
-  <section id="about-section">
-    <div class="about-inner">
-      <span class="eyebrow">About</span>
-      <h2 class="section-title">The Story</h2>
-      <div class="divider">
-        <div class="divider-line"></div>
-        <span class="divider-star">&#9733;</span>
-        <div class="divider-line" style="background:linear-gradient(to left,var(--red),transparent);"></div>
-      </div>
-      <div class="about-bio">
-        <p class="about-text">
-          Night Shift is five men who couldn't be more different — and couldn't sound more like one. Buck brings the swagger of the open road. Steel keeps the beat like a jackhammer on pavement. Flex delivers the hooks that hit like a freight train. Blaze ignites every chorus. Ace keeps it all airborne.
-          <br><br>
-          Together, they're the sound of the late shift — raw, electric, and unstoppable. Their debut single <em>No Rules Tonight</em> is just the beginning.
-          <br><br>
-          A Hello Texas Records artist.
-        </p>
-        <img class="about-photo" src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-band-photo-alternate-no-text.png" alt="Night Shift">
-      </div>
-
-      <!-- 8. MEMBER PHOTOS -->
-      <div class="members-header">
-        <span class="eyebrow">The Crew</span>
-        <h3 style="font-family:'Oswald',sans-serif;font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:500;color:var(--white);text-transform:uppercase;letter-spacing:0.08em;">Meet Night Shift</h3>
-      </div>
-      <div class="members-grid">
-        <div class="member-card">
-          <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-buck-photo-2.png" alt="Buck">
-          <div class="member-name">Buck</div>
-          <div class="member-role">Vocals</div>
-        </div>
-        <div class="member-card">
-          <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-steel-photo-1.png" alt="Steel">
-          <div class="member-name">Steel</div>
-          <div class="member-role">Vocals</div>
-        </div>
-        <div class="member-card">
-          <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-flex-photo-1.png" alt="Flex">
-          <div class="member-name">Flex</div>
-          <div class="member-role">Vocals</div>
-        </div>
-        <div class="member-card">
-          <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-blaze-photo-1.png" alt="Blaze">
-          <div class="member-name">Blaze</div>
-          <div class="member-role">Vocals</div>
-        </div>
-        <div class="member-card">
-          <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-ace-photo-3.png" alt="Ace">
-          <div class="member-name">Ace</div>
-          <div class="member-role">Vocals</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>&copy; 2025 Night Shift &nbsp;·&nbsp; <a href="https://hellotexasrecords.com/" target="_blank">Hello Texas Records</a></p>
-  </footer>
-
-  <!-- 9. BOTTOM PLAYER BAR -->
-  <div id="player-bar">
-    <img id="pb-art" src="" alt="">
-    <div id="pb-info">
-      <div id="pb-title">—</div>
-      <div id="pb-album">Night Shift</div>
-    </div>
-    <div class="pb-controls">
-      <button class="pb-skip" id="pb-prev">&#9664;&#9664;</button>
-      <button id="pb-play">&#9654;</button>
-      <button class="pb-skip" id="pb-next">&#9654;&#9654;</button>
-    </div>
-    <div class="pb-progress">
-      <span class="pb-time" id="pb-cur">0:00</span>
-      <div class="pb-bar" id="pb-bar"><div class="pb-fill" id="pb-fill"></div></div>
-      <span class="pb-time" id="pb-dur">0:00</span>
-    </div>
-    <input type="range" class="pb-vol" id="pb-vol" min="0" max="1" step="0.02" value="0.85">
   </div>
-
-  <script>
-    const ALBUM_CONFIG = {
-      'No Rules Tonight': {
-        cover: 'https://raw.githubusercontent.com/SteveP999/Night-Shift/main/covers/night-shift-no-rules-tonight-cover.png',
-        year: '2025',
-        genre: 'Rock · Hard Rock'
-      }
-    };
-
-    let TRACKS = [];
-    let currentIdx = -1;
-    const aud = new Audio();
-    aud.volume = 0.85;
-
-    const pbBar   = document.getElementById('player-bar');
-    const pbPlay  = document.getElementById('pb-play');
-    const pbPrev  = document.getElementById('pb-prev');
-    const pbNext  = document.getElementById('pb-next');
-    const pbArt   = document.getElementById('pb-art');
-    const pbTitle = document.getElementById('pb-title');
-    const pbAlbum = document.getElementById('pb-album');
-    const pbCur   = document.getElementById('pb-cur');
-    const pbDur   = document.getElementById('pb-dur');
-    const pbFill  = document.getElementById('pb-fill');
-    const pbBarEl = document.getElementById('pb-bar');
-    const pbVol   = document.getElementById('pb-vol');
-
-    function fmt(s) {
-      if (!isFinite(s)) return '0:00';
-      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
-      return m + ':' + (sec < 10 ? '0' : '') + sec;
-    }
-
-    function hasAudio(t) { return t && t.audio && t.audio.trim().length > 0; }
-
-    function normalizeTrack(t, i) {
-      return {
-        num:   t.num || (t.track ? String(t.track).padStart(2,'0') : String(i+1).padStart(2,'0')),
-        title: t.title   || 'Untitled',
-        artist:t.artist  || 'Night Shift',
-        album: t.album   || 'No Rules Tonight',
-        cover: t.cover   || '',
-        audio: t.audioSrc || t.audio || ''
-      };
-    }
-
-    function groupByAlbum(tracks) {
-      const map = new Map();
-      tracks.forEach((t, i) => {
-        if (!map.has(t.album)) map.set(t.album, []);
-        map.get(t.album).push({ ...t, globalIdx: i });
-      });
-      return map;
-    }
-
-    function renderDiscography() {
-      const container = document.getElementById('discography-albums');
-      const albums = groupByAlbum(TRACKS);
-      let html = '';
-      albums.forEach((tracks, name) => {
-        const cfg = ALBUM_CONFIG[name] || {};
-        const albumCover = cfg.cover || (tracks[0] && tracks[0].cover) || '';
-        const sub = [cfg.year, cfg.genre].filter(Boolean).join(' · ');
-        html += `
-          <div class="album-block">
-            <div class="album-header-strip">
-              <img class="album-cover-sq" src="${albumCover}" alt="${name}">
-              <div class="album-header-text">
-                <span class="eyebrow">Single</span>
-                <h3 class="album-title">${name}</h3>
-                <p class="album-sub">${sub} · ${tracks.length} track${tracks.length !== 1 ? 's' : ''}</p>
-              </div>
-            </div>
-            <div class="song-grid">
-              ${tracks.map(t => `
-                <div class="song-card" data-idx="${t.globalIdx}" title="Play ${t.title}">
-                  <div class="song-img-wrap">
-                    <img src="${t.cover || albumCover}" alt="${t.title}" loading="lazy">
-                    <div class="song-play-overlay"><div class="song-play-icon">&#9654;</div></div>
-                  </div>
-                  <div class="song-card-num">Track ${t.num}</div>
-                  <div class="song-card-title">${t.title}</div>
-                </div>
-              `).join('')}
-            </div>
-          </div>`;
-      });
-      container.innerHTML = html;
-      container.querySelectorAll('.song-card').forEach(c => {
-        c.addEventListener('click', () => playTrack(Number(c.dataset.idx)));
-      });
-    }
-
-    function setLatest(t) {
-      document.getElementById('latest-title-top').textContent = t.title;
-      document.getElementById('latest-title-large').textContent = t.title;
-      document.getElementById('latest-artist').textContent = t.artist;
-      const img = document.getElementById('latest-cover');
-      img.src = t.cover; img.alt = t.title;
-      const btn = document.getElementById('latest-play');
-      btn.onclick = () => playTrack(TRACKS.indexOf(t));
-      btn.disabled = !hasAudio(t);
-    }
-
-    function playTrack(idx) {
-      if (idx < 0 || idx >= TRACKS.length) return;
-      const t = TRACKS[idx];
-      if (!hasAudio(t)) return;
-      currentIdx = idx;
-      aud.src = t.audio;
-      pbTitle.textContent = t.title;
-      pbAlbum.textContent = t.album;
-      pbArt.src = t.cover;
-      pbBar.classList.add('visible');
-      document.querySelectorAll('.song-card').forEach(c => c.classList.remove('playing'));
-      const card = document.querySelector(`.song-card[data-idx="${idx}"]`);
-      if (card) { card.classList.add('playing'); card.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
-      aud.play();
-      pbPlay.innerHTML = '&#10074;&#10074;';
-    }
-
-    async function loadSongs() {
-      try {
-        const res = await fetch('./songs.json?v=' + Date.now());
-        const raw = await res.json();
-        TRACKS = raw.map(normalizeTrack);
-        const latest = TRACKS.find(t => t.isLatest) || TRACKS[TRACKS.length - 1];
-        if (latest) setLatest(latest);
-        renderDiscography();
-        document.getElementById('hero-play-btn').onclick = () => {
-          if (latest) playTrack(TRACKS.indexOf(latest));
-        };
-      } catch(err) {
-        console.error('Could not load songs.json', err);
-      }
-    }
-
-    pbPlay.addEventListener('click', () => {
-      if (currentIdx < 0) return playTrack(0);
-      if (aud.paused) { aud.play(); pbPlay.innerHTML = '&#10074;&#10074;'; }
-      else            { aud.pause(); pbPlay.innerHTML = '&#9654;'; }
-    });
-    pbPrev.addEventListener('click', () => {
-      for (let i = currentIdx - 1; i >= 0; i--)
-        if (hasAudio(TRACKS[i])) return playTrack(i);
-    });
-    pbNext.addEventListener('click', () => {
-      for (let i = currentIdx + 1; i < TRACKS.length; i++)
-        if (hasAudio(TRACKS[i])) return playTrack(i);
-    });
-    aud.addEventListener('ended', () => pbNext.click());
-    aud.addEventListener('timeupdate', () => {
-      pbCur.textContent = fmt(aud.currentTime);
-      pbDur.textContent = fmt(aud.duration);
-      pbFill.style.width = ((aud.currentTime / aud.duration) || 0) * 100 + '%';
-    });
-    pbBarEl.addEventListener('click', e => {
-      const r = pbBarEl.getBoundingClientRect();
-      if (isFinite(aud.duration)) aud.currentTime = ((e.clientX - r.left) / r.width) * aud.duration;
-    });
-    pbVol.addEventListener('input', e => { aud.volume = e.target.value; });
-    window.addEventListener('scroll', () => {
-      document.getElementById('topnav').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    loadSongs();
-  </script>
+</section>
+<section id="bio">
+  <div class="section-header">
+    <div class="section-eyebrow">About the Band</div>
+    <h2 class="section-title">Night Shift</h2>
+    <div class="amber-rule"></div>
+  </div>
+  <div class="bio-inner">
+    <p>Night Shift is a five-piece Southern Rock and blues-rock band that runs on late nights, loud amps, and the belief that the best music happens when most people are already asleep.</p>
+    <p>Gritty guitar work, locked-in grooves, and vocals that sound like they've been somewhere. Their debut <em>No Rules Tonight</em> is exactly what the name says. Released through Hello Texas Records.</p>
+    <div class="band-members">
+      <span class="member-tag">Blaze</span>
+      <span class="member-tag">Buck</span>
+      <span class="member-tag">Ace</span>
+      <span class="member-tag">Flex</span>
+      <span class="member-tag">Steel</span>
+    </div>
+  </div>
+</section>
+<section id="latest-single">
+  <div class="section-header">
+    <div class="section-eyebrow">Latest Single</div>
+    <h2 class="section-title" id="latest-section-title">Loading…</h2>
+    <div class="amber-rule"></div>
+  </div>
+  <div class="latest-inner">
+    <div><img id="latest-cover" src="" alt="" class="latest-cover"></div>
+    <div>
+      <div class="latest-badge">Latest Single</div>
+      <h2 class="latest-title" id="latest-title">—</h2>
+      <div class="latest-sub" id="latest-sub">Night Shift</div>
+      <button class="latest-play-btn" id="latest-play-btn">&#9654;&nbsp; Play Now</button>
+    </div>
+  </div>
+</section>
+<div id="albums"><div class="loading-ph" id="albums-loading">Loading music…</div></div>
+<section id="singles">
+  <div class="section-header">
+    <div class="section-eyebrow">Singles</div>
+    <h2 class="section-title">All Tracks</h2>
+    <div class="amber-rule"></div>
+  </div>
+  <div class="singles-grid" id="singles-grid"><div class="loading-ph">Loading…</div></div>
+</section>
+<section id="photos">
+  <div class="photo-header">
+    <div class="section-eyebrow">The Band</div>
+    <h2 class="section-title">Night Shift</h2>
+    <div class="amber-rule"></div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-wide">
+      <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-band-photo-alternate-no-text.png" alt="Night Shift">
+    </div>
+    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-blaze-photo-1.png" alt="Blaze">
+    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-buck-photo-2.png" alt="Buck">
+    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-ace-photo-3.png" alt="Ace">
+    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-flex-photo-1.png" alt="Flex">
+    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-steel-photo-1.png" alt="Steel">
+  </div>
+</section>
+<footer>
+  <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift" class="foot-logo">
+  <div class="foot-label">Hello Texas Records</div>
+  <div class="foot-links">
+    <a href="#" target="_blank">Spotify</a>
+    <a href="#" target="_blank">Apple Music</a>
+    <a href="#" target="_blank">YouTube</a>
+    <a href="#" target="_blank">Instagram</a>
+    <a href="https://stevep999.github.io/hello-texas-records/" target="_blank">Label</a>
+  </div>
+</footer>
+<audio id="audio" playsinline preload="none"></audio>
+<div id="player">
+  <div class="p-info">
+    <img id="p-thumb" src="" alt="" class="p-thumb">
+    <div><div id="p-title" class="p-title">—</div><div id="p-sub" class="p-sub">Night Shift</div></div>
+  </div>
+  <div class="p-controls">
+    <div class="p-btn-row">
+      <button class="p-btn" id="p-prev">&#9664;&#9664;</button>
+      <button id="p-playbtn">&#9654;</button>
+      <button class="p-btn" id="p-next">&#9654;&#9654;</button>
+    </div>
+    <div class="p-progress">
+      <span class="p-time" id="p-cur">0:00</span>
+      <div id="p-bar"><div id="p-fill"></div></div>
+      <span class="p-time" id="p-dur">0:00</span>
+    </div>
+  </div>
+  <div class="p-right">
+    <input type="range" id="p-vol" min="0" max="1" step="0.02" value="0.85">
+    <button id="p-close">&#x2715;</button>
+  </div>
+</div>
+<script>
+const ARTIST='Night Shift',REPO='Night-Shift';
+const BASE=`https://raw.githubusercontent.com/SteveP999/${REPO}/main`;
+const SONGS_URL=`${BASE}/songs.json`,LATEST_URL=`${BASE}/latest.json`;
+let SONGS=[],ORDER=[],cur=null;
+const audio=document.getElementById('audio'),player=document.getElementById('player'),pThumb=document.getElementById('p-thumb');
+function fmt(s){if(!isFinite(s)||isNaN(s))return'0:00';const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}
+function getSong(id){return SONGS.find(s=>s.id===id);}
+function setAllBtns(id,playing){
+  document.querySelectorAll('[data-play-id]').forEach(btn=>{
+    btn.innerHTML=(playing&&btn.dataset.playId===id)?'&#9646;&#9646;':'&#9654;';
+    btn.classList.toggle('playing',playing&&btn.dataset.playId===id);
+  });
+  document.getElementById('p-playbtn').innerHTML=playing?'&#9646;&#9646;':'&#9654;';
+}
+function playById(id){
+  const song=getSong(id);if(!song||!song.audio)return;
+  if(cur===id){if(audio.paused){audio.play().catch(()=>{});setAllBtns(id,true);}else{audio.pause();setAllBtns(id,false);}return;}
+  cur=id;
+  gtag('event','song_play',{artist:ARTIST,song_title:song.title,album:song.album,player_type:'artist_site'});
+  audio.removeAttribute('crossorigin');audio.src=song.audio;
+  document.getElementById('p-title').textContent=song.title;
+  document.getElementById('p-sub').textContent=song.album||ARTIST;
+  if(song.cover)pThumb.src=song.cover;
+  player.style.display='grid';setTimeout(()=>player.classList.add('visible'),10);
+  setAllBtns(id,true);audio.load();
+  const pp=audio.play();if(pp)pp.catch(()=>{audio.addEventListener('canplaythrough',function h(){audio.removeEventListener('canplaythrough',h);audio.play().catch(()=>{});});});
+}
+audio.addEventListener('ended',()=>{if(!cur||!ORDER.length)return;const idx=ORDER.indexOf(cur);playById(ORDER[(idx+1)%ORDER.length]);});
+audio.addEventListener('timeupdate',()=>{const pct=audio.duration?(audio.currentTime/audio.duration)*100:0;document.getElementById('p-fill').style.width=pct+'%';document.getElementById('p-cur').textContent=fmt(audio.currentTime);document.getElementById('p-dur').textContent=fmt(audio.duration);});
+document.getElementById('p-playbtn').addEventListener('click',()=>{if(!cur)return;if(audio.paused){audio.play().catch(()=>{});setAllBtns(cur,true);}else{audio.pause();setAllBtns(cur,false);}});
+document.getElementById('p-prev').addEventListener('click',()=>{if(!cur||!ORDER.length)return;if(audio.currentTime>3){audio.currentTime=0;return;}const idx=ORDER.indexOf(cur);playById(ORDER[(idx-1+ORDER.length)%ORDER.length]);});
+document.getElementById('p-next').addEventListener('click',()=>{if(!cur||!ORDER.length)return;const idx=ORDER.indexOf(cur);playById(ORDER[(idx+1)%ORDER.length]);});
+document.getElementById('p-bar').addEventListener('click',e=>{if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;});
+document.getElementById('p-vol').addEventListener('input',e=>{audio.volume=+e.target.value;});
+document.getElementById('p-close').addEventListener('click',()=>{audio.pause();player.classList.remove('visible');setTimeout(()=>{player.style.display='none';},350);setAllBtns(cur,false);cur=null;});
+function buildAlbums(songs){
+  const map=new Map();songs.forEach(s=>{if(!map.has(s.album))map.set(s.album,[]);map.get(s.album).push(s);});
+  const container=document.getElementById('albums');container.innerHTML='';
+  let i=0;map.forEach((tracks,name)=>{
+    const cover=tracks[0].albumCover||tracks[0].cover;
+    const sec=document.createElement('section');sec.className='album-section';
+    sec.innerHTML=`<div class="album-layout">
+      <div><img src="${cover}" alt="${name}" class="album-cover"></div>
+      <div style="padding-top:0.5rem;">
+        <div class="album-badge">${i===0?'Debut Album':'Album'}</div>
+        <h2 class="album-title">${name}</h2>
+        <div class="album-artist">${ARTIST}</div>
+        <div class="tracklist">
+          ${tracks.map(t=>`<div class="track-row">
+            <span class="track-num">${t.num||''}</span>
+            <span class="track-title">${t.title}</span>
+            <span>${t.isLatest?'<span class="track-badge">Latest</span>':''}</span>
+            <button class="track-play-btn" data-play-id="${t.id}" onclick="playById('${t.id}')">&#9654;</button>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+    container.appendChild(sec);i++;
+  });
+}
+function buildSingles(songs){
+  document.getElementById('singles-grid').innerHTML=songs.map(s=>`
+    <div class="single-card" onclick="playById('${s.id}')">
+      <div class="single-img-wrap">
+        <img src="${s.cover}" alt="${s.title}" loading="lazy">
+        <div class="single-overlay"><button class="single-play-btn" data-play-id="${s.id}">&#9654;</button></div>
+      </div>
+      <div class="single-info">
+        <div class="single-title">${s.title}</div>
+        <div class="single-sub">${s.album}${s.isLatest?'<span class="single-badge">Latest</span>':''}</div>
+      </div>
+    </div>`).join('');
+}
+function updateLatest(song){
+  if(!song)return;
+  document.getElementById('latest-section-title').textContent=song.title;
+  document.getElementById('latest-title').textContent=song.title;
+  document.getElementById('latest-sub').textContent=`${ARTIST} · ${song.album||''}`;
+  const cv=document.getElementById('latest-cover');cv.src=song.cover||'';cv.alt=song.title;
+  const lb=document.getElementById('latest-play-btn');lb.onclick=()=>playById(song.id);lb.dataset.playId=song.id;
+  const hb=document.getElementById('hero-play-btn');hb.textContent=`▶  Play ${song.title}`;hb.onclick=()=>playById(song.id);
+}
+async function init(){
+  try{
+    const res=await fetch(`${SONGS_URL}?cb=${Date.now()}`);
+    SONGS=await res.json();ORDER=SONGS.map(s=>s.id);
+    buildAlbums(SONGS);buildSingles(SONGS);
+    const latest=SONGS.find(s=>s.isLatest)||SONGS[SONGS.length-1];
+    updateLatest(latest);
+    try{const lr=await fetch(`${LATEST_URL}?cb=${Date.now()}`);const ld=await lr.json();if(ld.title){const m=SONGS.find(s=>s.title===ld.title);if(m)updateLatest(m);}}catch(e){}
+  }catch(e){document.getElementById('albums-loading').textContent='Music unavailable.';}
+}
+init();
+window.addEventListener('scroll',()=>{document.getElementById('topnav').classList.toggle('scrolled',window.scrollY>60);});
+</script>
 </body>
 </html>

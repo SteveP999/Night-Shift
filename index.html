@@ -125,6 +125,19 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
 .foot-links a{font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dust);text-decoration:none;opacity:0.4;transition:opacity 0.2s,color 0.2s;}
 .foot-links a:hover{opacity:1;color:var(--amber-lt);}
 .loading-ph{text-align:center;padding:3rem;color:var(--dust);font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;letter-spacing:0.2em;text-transform:uppercase;}
+
+.album-tracks-block{max-width:1040px;margin:3rem auto 0;padding:0 2.5rem;}
+.album-tracks-title{font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;}
+.album-track-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.35rem;}
+.album-track-card{background:rgba(3,5,8,0.36);border:1px solid rgba(212,144,42,0.14);padding:0.85rem;transition:border-color 0.2s,transform 0.2s;}
+.album-track-card:hover{border-color:rgba(212,144,42,0.45);transform:translateY(-2px);}
+.album-track-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;margin-bottom:0.75rem;}
+.album-track-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:600;letter-spacing:0.04em;color:var(--white);margin-bottom:0.65rem;}
+.album-track-actions{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.album-track-actions button,.album-track-actions a,.video-coming-soon{font-family:'Barlow Condensed',sans-serif;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(212,144,42,0.35);background:transparent;color:var(--accent);padding:0.35rem 0.65rem;cursor:pointer;}
+.album-track-actions button:hover,.album-track-actions a:hover{border-color:var(--amber);color:var(--amber-lt);}
+.video-coming-soon{opacity:0.55;cursor:default;}
+
 @media(max-width:768px){
   .album-layout{grid-template-columns:1fr;gap:2rem;}
   .album-cover{max-width:300px;margin:0 auto;}
@@ -133,6 +146,7 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
   .singles-grid{grid-template-columns:1fr;gap:1rem;}
   #player{grid-template-columns:1fr;gap:0.5rem;}
   .p-info{display:none;}
+  .album-track-grid{grid-template-columns:1fr 1fr;}
   .photo-grid{grid-template-columns:repeat(2,1fr);}
   .photo-wide{grid-column:span 2;}
 }
@@ -144,7 +158,6 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
   <ul class="nav-links">
     <li><a href="#bio">About</a></li>
     <li><a href="#albums">Music</a></li>
-    <li><a href="#singles">Singles</a></li>
     <li><a href="#photos">Band</a></li>
     <li><a href="https://stevep999.github.io/hello-texas-records/" target="_blank" style="opacity:0.45;font-size:0.72rem;">Hello Texas Records</a></li>
   </ul>
@@ -221,14 +234,6 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
 </section>
 
 <div id="albums"><div class="loading-ph" id="albums-loading">Loading music…</div></div>
-<section id="singles">
-  <div class="section-header">
-    <div class="section-eyebrow">Singles</div>
-    <h2 class="section-title">All Tracks</h2>
-    <div class="amber-rule"></div>
-  </div>
-  <div class="singles-grid" id="singles-grid"><div class="loading-ph">Loading…</div></div>
-</section>
 <section id="photos">
   <div class="photo-header">
     <div class="section-eyebrow">The Band</div>
@@ -315,12 +320,30 @@ document.getElementById('p-next').addEventListener('click',()=>{if(!cur||!ORDER.
 document.getElementById('p-bar').addEventListener('click',e=>{if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;});
 document.getElementById('p-vol').addEventListener('input',e=>{audio.volume=+e.target.value;});
 document.getElementById('p-close').addEventListener('click',()=>{audio.pause();player.classList.remove('visible');setTimeout(()=>{player.style.display='none';},350);setAllBtns(cur,false);cur=null;});
+function renderVideoLinks(song){
+  const videos = Array.isArray(song.videos) ? song.videos : [];
+  if(videos.length){
+    return videos.map(v => `<a href="${v.youtube || v.url || '#'}" target="_blank">Watch Video</a>`).join('');
+  }
+  return `<span class="video-coming-soon">Video Coming Soon</span>`;
+}
+
 function buildAlbums(songs){
-  const map=new Map();songs.forEach(s=>{if(!map.has(s.album))map.set(s.album,[]);map.get(s.album).push(s);});
-  const container=document.getElementById('albums');container.innerHTML='';
-  let i=0;map.forEach((tracks,name)=>{
+  const map=new Map();
+  songs.forEach(s=>{
+    if(!map.has(s.album))map.set(s.album,[]);
+    map.get(s.album).push(s);
+  });
+
+  const container=document.getElementById('albums');
+  container.innerHTML='';
+
+  let i=0;
+  map.forEach((tracks,name)=>{
     const cover=tracks[0].albumCover||tracks[0].cover;
-    const sec=document.createElement('section');sec.className='album-section';
+    const sec=document.createElement('section');
+    sec.className='album-section';
+
     sec.innerHTML=`<div class="album-layout">
       <div><img src="${cover}" alt="${name}" class="album-cover"></div>
       <div style="padding-top:0.5rem;">
@@ -336,23 +359,26 @@ function buildAlbums(songs){
           </div>`).join('')}
         </div>
       </div>
+    </div>
+    <div class="album-tracks-block">
+      <div class="album-tracks-title">Album Tracks</div>
+      <div class="album-track-grid">
+        ${tracks.map(t=>`<article class="album-track-card">
+          <img src="${t.cover}" alt="${t.title}" loading="lazy">
+          <div class="album-track-name">${t.title}</div>
+          <div class="album-track-actions">
+            <button data-play-id="${t.id}" onclick="playById('${t.id}')">&#9654; Play</button>
+            ${renderVideoLinks(t)}
+          </div>
+        </article>`).join('')}
+      </div>
     </div>`;
-    container.appendChild(sec);i++;
+
+    container.appendChild(sec);
+    i++;
   });
 }
-function buildSingles(songs){
-  document.getElementById('singles-grid').innerHTML=songs.map(s=>`
-    <div class="single-card" onclick="playById('${s.id}')">
-      <div class="single-img-wrap">
-        <img src="${s.cover}" alt="${s.title}" loading="lazy">
-        <div class="single-overlay"><button class="single-play-btn" data-play-id="${s.id}">&#9654;</button></div>
-      </div>
-      <div class="single-info">
-        <div class="single-title">${s.title}</div>
-        <div class="single-sub">${s.album}${s.isLatest?'<span class="single-badge">Latest</span>':''}</div>
-      </div>
-    </div>`).join('');
-}
+function buildSingles(songs){}
 function updateLatest(song){
   if(!song)return;
   document.getElementById('latest-section-title').textContent=song.title;
@@ -366,7 +392,7 @@ async function init(){
   try{
     const res=await fetch(`${SONGS_URL}?cb=${Date.now()}`);
     SONGS=await res.json();ORDER=SONGS.map(s=>s.id);
-    buildAlbums(SONGS);buildSingles(SONGS);
+    buildAlbums(SONGS);
     const latest=SONGS.find(s=>s.isLatest)||SONGS[SONGS.length-1];
     updateLatest(latest);
     try{const lr=await fetch(`${LATEST_URL}?cb=${Date.now()}`);const ld=await lr.json();if(ld.title){const m=SONGS.find(s=>s.title===ld.title);if(m)updateLatest(m);}}catch(e){}

@@ -37,3 +37,16 @@ Every song object includes:
 
 If videos exist, the site must render a featured Latest Video section.
 If no videos exist, the site must render Video Coming Soon.
+
+
+## Album Track Standard
+
+Do not render a global Singles or All Tracks dump.
+
+Each album section must include:
+- album cover
+- track list beside album
+- Album Tracks heading
+- song cover cards beneath that album only
+
+This must work even when the artist currently has only one album.

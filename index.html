@@ -140,7 +140,7 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
 </head>
 <body>
 <nav id="topnav">
-  <img class="nav-logo" src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift">
+  <img class="nav-logo" src="images/logos/night-shift-logo-transparent-background.png" alt="Night Shift">
   <ul class="nav-links">
     <li><a href="#bio">About</a></li>
     <li><a href="#albums">Music</a></li>
@@ -150,13 +150,13 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
   </ul>
 </nav>
 <section class="hero">
-  <div class="hero-bg" style="background-image:url('https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-band-photo-no-text.png');"></div>
+  <div class="hero-bg" style="background-image:url('images/artist/night-shift-band-photo-no-text.png');"></div>
   <div class="hero-vignette"></div>
   <div class="hero-glow"></div>
   <div class="hero-content">
     <div class="hero-label">Hello Texas Records</div>
     <div class="hero-logo-wrap">
-      <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift">
+      <img src="images/logos/night-shift-logo-transparent-background.png" alt="Night Shift">
     </div>
     <p class="hero-tagline">When the day shift clocks out,<br>Night Shift takes over.</p>
     <div class="hero-ctas">
@@ -237,17 +237,17 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
   </div>
   <div class="photo-grid">
     <div class="photo-wide">
-      <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-band-photo-alternate-no-text.png" alt="Night Shift">
+      <img src="images/artist/night-shift-band-photo-alternate-no-text.png" alt="Night Shift">
     </div>
-    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-blaze-photo-1.png" alt="Blaze">
-    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-buck-photo-2.png" alt="Buck">
-    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-ace-photo-3.png" alt="Ace">
-    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-flex-photo-1.png" alt="Flex">
-    <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-steel-photo-1.png" alt="Steel">
+    <img src="images/artist/night-shift-blaze-photo-1.png" alt="Blaze">
+    <img src="images/artist/night-shift-buck-photo-2.png" alt="Buck">
+    <img src="images/artist/night-shift-ace-photo-3.png" alt="Ace">
+    <img src="images/artist/night-shift-flex-photo-1.png" alt="Flex">
+    <img src="images/artist/night-shift-steel-photo-1.png" alt="Steel">
   </div>
 </section>
 <footer>
-  <img src="https://raw.githubusercontent.com/SteveP999/Night-Shift/main/night-shift-logo-transparent-background.png" alt="Night Shift" class="foot-logo">
+  <img src="images/logos/night-shift-logo-transparent-background.png" alt="Night Shift" class="foot-logo">
   <div class="foot-label">Hello Texas Records</div>
   <div class="foot-links">
     <a href="#" target="_blank">Spotify</a>
@@ -282,8 +282,7 @@ footer{background:var(--black);border-top:1px solid var(--indigo-glow);padding:4
 </div>
 <script>
 const ARTIST='Night Shift',REPO='Night-Shift';
-const BASE=`https://raw.githubusercontent.com/SteveP999/${REPO}/main`;
-const SONGS_URL=`${BASE}/songs.json`,LATEST_URL=`${BASE}/latest.json`;
+const SONGS_URL='songs.json',LATEST_URL='latest.json';
 let SONGS=[],ORDER=[],cur=null;
 const audio=document.getElementById('audio'),player=document.getElementById('player'),pThumb=document.getElementById('p-thumb');
 function fmt(s){if(!isFinite(s)||isNaN(s))return'0:00';const m=Math.floor(s/60),sec=Math.floor(s%60);return m+':'+(sec<10?'0':'')+sec;}

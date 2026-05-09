@@ -3,8 +3,8 @@
   "artist": "Night Shift",
   "album": "No Rules Tonight",
   "type": "Latest Single",
-  "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/covers/night-shift-housefire-cover.png",
-  "image": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/covers/night-shift-housefire-cover.png",
+  "cover": "images/covers/night-shift-housefire-cover.png",
+  "image": "images/covers/night-shift-housefire-cover.png",
   "audio": "https://www.dropbox.com/scl/fi/begi3v87qfg2qdotlfw9c/night-shift-housefire-mp3.mp3?rlkey=u9p4rmbuzqcmtfy3moa821co3&raw=1",
   "audioSrc": "https://www.dropbox.com/scl/fi/begi3v87qfg2qdotlfw9c/night-shift-housefire-mp3.mp3?rlkey=u9p4rmbuzqcmtfy3moa821co3&raw=1"
 }

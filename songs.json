@@ -5,17 +5,21 @@
     "title": "No Rules Tonight",
     "artist": "Night Shift",
     "album": "No Rules Tonight",
-    "albumCover": "images/covers/night-shift-no-rules-tonight-cover.png",
-    "type": "Single",
-    "isLatest": false,
-    "cover": "images/covers/night-shift-no-rules-tonight-cover.png",
+    "trackNumber": 1,
+    "albumOrder": 1,
+    "albumSortOrder": 9999,
+    "sourceOrder": 1,
+    "albumCover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-no-rules-tonight-cover.png",
+    "type": "single",
+    "isLatest": true,
+    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-no-rules-tonight-cover.png",
     "audio": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1",
-    "videos": [
-      {
-        "title": "Official Video",
-        "youtube": "https://youtu.be/8lA1sOPqRCw"
-      }
-    ]
+    "audioSrc": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1",
+    "videos": [],
+    "includeOnRadio": true,
+    "includeOnHomepage": false,
+    "explicit": false,
+    "tags": []
   },
   {
     "id": "turn_me_up",
@@ -23,12 +27,21 @@
     "title": "Turn Me Up",
     "artist": "Night Shift",
     "album": "No Rules Tonight",
-    "albumCover": "images/covers/night-shift-no-rules-tonight-cover.png",
-    "type": "Single",
+    "trackNumber": 2,
+    "albumOrder": 2,
+    "albumSortOrder": 9999,
+    "sourceOrder": 2,
+    "albumCover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-turn-me-up-cover.png",
+    "type": "single",
     "isLatest": false,
-    "cover": "images/covers/night-shift-turn-me-up-cover.png",
+    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-turn-me-up-cover.png",
     "audio": "https://www.dropbox.com/scl/fi/ncplflnsdo9cp4o5ldgn3/night-shift-turn-me-up-mp3.mp3?rlkey=1w1zljwrr2y901ti1unhppdnw&raw=1",
-    "videos": []
+    "audioSrc": "https://www.dropbox.com/scl/fi/ncplflnsdo9cp4o5ldgn3/night-shift-turn-me-up-mp3.mp3?rlkey=1w1zljwrr2y901ti1unhppdnw&raw=1",
+    "videos": [],
+    "includeOnRadio": true,
+    "includeOnHomepage": false,
+    "explicit": false,
+    "tags": []
   },
   {
     "id": "housefire",
@@ -36,11 +49,20 @@
     "title": "Housefire",
     "artist": "Night Shift",
     "album": "No Rules Tonight",
-    "albumCover": "images/covers/night-shift-no-rules-tonight-cover.png",
-    "type": "Latest Single",
-    "isLatest": true,
-    "cover": "images/covers/night-shift-housefire-cover.png",
+    "trackNumber": 3,
+    "albumOrder": 3,
+    "albumSortOrder": 9999,
+    "sourceOrder": 3,
+    "albumCover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-housefire-cover.png",
+    "type": "single",
+    "isLatest": false,
+    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-housefire-cover.png",
     "audio": "https://www.dropbox.com/scl/fi/begi3v87qfg2qdotlfw9c/night-shift-housefire-mp3.mp3?rlkey=u9p4rmbuzqcmtfy3moa821co3&raw=1",
-    "videos": []
+    "audioSrc": "https://www.dropbox.com/scl/fi/begi3v87qfg2qdotlfw9c/night-shift-housefire-mp3.mp3?rlkey=u9p4rmbuzqcmtfy3moa821co3&raw=1",
+    "videos": [],
+    "includeOnRadio": true,
+    "includeOnHomepage": false,
+    "explicit": false,
+    "tags": []
   }
 ]

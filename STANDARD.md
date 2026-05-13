@@ -1,52 +1,20 @@
-# Night Shift
+# Hello Texas Records Unified Artist Standard v1
 
-Standardized Hello Texas Records artist site.
-
-## Required Structure
-
-/images
-   /artist
-   /covers
-   /logos
-
-/audio
-
-index.html
-songs.json
-latest.json
-radio.json
-update.bat
-CNAME
-STANDARD.md
-
-## Path Standard
-
-All images inside the artist site must use relative paths:
-
-- images/artist/...
-- images/covers/...
-- images/logos/...
-
-Do not use GitHub raw image URLs for local site assets.
-
-## Video Standard
-
-Every song object includes:
-
-"videos": []
-
-If videos exist, the site must render a featured Latest Video section.
-If no videos exist, the site must render Video Coming Soon.
-
-
-## Album Track Standard
-
-Do not render a global Singles or All Tracks dump.
-
-Each album section must include:
-- album cover
-- track list beside album
-- Album Tracks heading
-- song cover cards beneath that album only
-
-This must work even when the artist currently has only one album.
+LOCKED RULES:
+- One architecture for all artist sites.
+- Per-artist uniqueness comes from theme, fonts, colors, logo, hero image, and copy.
+- Required folders in artist repo: images/covers/, images/logos/, images/artist/.
+- User-managed source photos live in Hello-Texas-Records/Roster Photos/<artist-id>/.
+- Build copies hero/gallery photos into artist repo images/artist/ for GitHub Pages.
+- Hero source: Roster Photos/<artist-id>/<artist-id>-hero-photo.png, aspect ratio 16:9.
+- Discography background: Roster Photos/<artist-id>/<artist-id>-discography-bg.png, aspect ratio 16:9.
+- Video background: Roster Photos/<artist-id>/<artist-id>-video-bg.png, aspect ratio 16:9.
+- Gallery sources: Roster Photos/<artist-id>/<artist-id>-photo-1.png through photo-3.png, aspect ratio 3:4.
+- Roster photo: Roster Photos/<artist-id>/<artist-id>-roster-photo.png, aspect ratio 1:1.
+- Album covers: images/covers/<artist-id>-<album-id>-ALBUM-cover.png.
+- Song covers: images/covers/<artist-id>-<song-id>-cover.png.
+- Every song object includes videos: [].
+- Album Tracks render beneath each album.
+- No Featured Tracks, All Tracks, or Singles dump sections.
+- If videos exist, show Watch Video. If empty, show Video Coming Soon.
+- Lucas Harlow can set noVideoSection true.

@@ -1,0 +1,10 @@
+{
+  "name": "Night Shift",
+  "short_name": "Night Shift",
+  "description": "Night Shift on Hello Texas Records",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090806",
+  "theme_color": "#d49a25",
+  "icons": []
+}

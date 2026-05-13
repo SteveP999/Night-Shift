@@ -1,12 +1,3 @@
 @echo off
-echo ======================================
-echo Night Shift Site Update
-echo ======================================
-
-git add .
-git commit -m "Night Shift site update"
-git push
-
-echo.
-echo Update complete.
-pause
+cd /d "%~dp0"
+powershell -NoExit -ExecutionPolicy Bypass -File "%~dp0update.ps1"

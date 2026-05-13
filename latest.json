@@ -7,5 +7,11 @@
   "image": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-no-rules-tonight-cover.png",
   "audio": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1",
   "audioSrc": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1",
-  "videos": []
+  "videos": [
+    {
+      "title": "No Rules Tonight",
+      "youtube": "https://youtu.be/8lA1sOPqRCw",
+      "order": 1
+    }
+  ]
 }

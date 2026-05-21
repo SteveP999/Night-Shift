@@ -1,17 +1,11 @@
 {
-  "title": "No Rules Tonight",
+  "title": "Housefire",
   "artist": "Night Shift",
   "album": "No Rules Tonight",
   "type": "Latest Single",
-  "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-no-rules-tonight-cover.png",
-  "image": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-no-rules-tonight-cover.png",
-  "audio": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1",
-  "audioSrc": "https://www.dropbox.com/scl/fi/y095y6udugo5czzvwjk9a/night-shift-no-rules-tonight-mp3.mp3?rlkey=jf20t7501lnj4e3ywn1do39ko&raw=1",
-  "videos": [
-    {
-      "title": "No Rules Tonight",
-      "youtube": "https://youtu.be/8lA1sOPqRCw",
-      "order": 1
-    }
-  ]
+  "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-housefire-cover.png",
+  "image": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-housefire-cover.png",
+  "audio": "https://www.dropbox.com/scl/fi/begi3v87qfg2qdotlfw9c/night-shift-housefire-mp3.mp3?rlkey=u9p4rmbuzqcmtfy3moa821co3&raw=1",
+  "audioSrc": "https://www.dropbox.com/scl/fi/begi3v87qfg2qdotlfw9c/night-shift-housefire-mp3.mp3?rlkey=u9p4rmbuzqcmtfy3moa821co3&raw=1",
+  "videos": []
 }

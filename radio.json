@@ -2,14 +2,22 @@
   "artist": "Night Shift",
   "latestUrl": "latest.json",
   "featuredTrack": {
-    "title": "Housefire",
+    "title": "Hearts Racing",
     "artist": "Night Shift",
     "album": "No Rules Tonight",
-    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-housefire-cover.png",
-    "audioSrc": "https://www.dropbox.com/scl/fi/begi3v87qfg2qdotlfw9c/night-shift-housefire-mp3.mp3?rlkey=u9p4rmbuzqcmtfy3moa821co3&raw=1",
+    "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-hearts-racing-cover.png",
+    "audioSrc": "https://www.dropbox.com/scl/fi/rvksbrmd25kl66ot6m7rz/night-shift-hearts-racing-mp3.mp3?rlkey=f1ub15nhbdclmcvag0lzev4v3&raw=1",
     "videos": []
   },
   "tracks": [
+    {
+      "title": "Hearts Racing",
+      "artist": "Night Shift",
+      "album": "No Rules Tonight",
+      "cover": "https://raw.githubusercontent.com/SteveP999/Night-Shift/main/images/covers/night-shift-hearts-racing-cover.png",
+      "audioSrc": "https://www.dropbox.com/scl/fi/rvksbrmd25kl66ot6m7rz/night-shift-hearts-racing-mp3.mp3?rlkey=f1ub15nhbdclmcvag0lzev4v3&raw=1",
+      "videos": []
+    },
     {
       "title": "Housefire",
       "artist": "Night Shift",
